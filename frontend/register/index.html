@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar - SafeWork</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="login-body">
+
+  <div class="login-container">
+    <div class="login-card">
+      <h2>Criar conta</h2>
+      <p>Registre um novo usuário</p>
+
+      <input type="text" id="username" placeholder="Usuário">
+      <input type="password" id="password" placeholder="Senha">
+
+      <button class="btn-primary" onclick="register()">Registrar</button>
+
+      <p style="margin-top:15px;">
+        Já tem conta?
+        <a href="../login/">Entrar</a>
+      </p>
+    </div>
+  </div>
+
+<script>
+function register() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  if (!username || !password) {
+    alert("Preencha todos os campos");
+    return;
+  }
+
+  // pegar usuarios existentes
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  // verificar duplicado
+  const exists = users.find(u => u.username === username);
+
+  if (exists) {
+    alert("Usuário já existe");
+    return;
+  }
+
+  // salvar novo usuário
+  users.push({ username, password });
+
+  localStorage.setItem("users", JSON.stringify(users));
+
+  alert("Conta criada com sucesso!");
+
+  window.location.href = "../login/";
+}
+</script>
+
+</body>
+</html>

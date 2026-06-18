@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - SafeWork</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="login-body">
+
+  <div class="login-container">
+    <div class="login-card">
+      <h2>SafeWork</h2>
+      <p>Entrar na plataforma</p>
+
+      <input type="text" id="username" placeholder="Usuário">
+      <input type="password" id="password" placeholder="Senha">
+
+      <button class="btn-primary" onclick="login()">Entrar</button>
+<p style="margin-top:15px;">
+  Não tem conta?
+  <a href="../register/">Registrar</a>
+</p>
+      
+    </div>
+  </div>
+
+<script>
+/* ========================
+BANCO FAKE
+======================== */
+const users = [
+  { username: "admin", password: "123456" },
+  { username: "luiz", password: "123456" }
+];
+
+/* ========================
+LOGIN
+======================== */
+function login() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  // validação básica
+  if (!username || !password) {
+    alert("Preencha usuário e senha");
+    return;
+  }
+
+  // procurar usuário
+  const user = users.find(
+    u => u.username === username && u.password === password
+  );
+
+  if (!user) {
+    alert("Usuário ou senha inválidos");
+    return;
+  }
+
+  // salvar sessão
+  localStorage.setItem("user", user.username);
+
+  // redirecionar pro sistema
+  window.location.href = "../index.html";
+}
+
+function login() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  if (!username || !password) {
+    alert("Preencha usuário e senha");
+    return;
+  }
+
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+
+  const user = users.find(
+    u => u.username === username && u.password === password
+  );
+
+  if (!user) {
+    alert("Usuário ou senha inválidos");
+    return;
+  }
+
+  localStorage.setItem("user", user.username);
+
+  window.location.href = "../index.html";
+}
+
+</script>
+
+</body>
+</html>
